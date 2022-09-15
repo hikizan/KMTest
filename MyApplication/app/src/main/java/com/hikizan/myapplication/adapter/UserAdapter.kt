@@ -12,6 +12,12 @@ import com.hikizan.myapplication.R
 import com.hikizan.myapplication.network.model.DataItem
 
 class UserAdapter(private val listUsers: List<DataItem>) : RecyclerView.Adapter<UserAdapter.ViewHolder>() {
+    private lateinit var onItemClickCallback: OnItemCallback
+
+    fun setOnItemClickCallback(onItemClickCallback: OnItemCallback){
+        this.onItemClickCallback = onItemClickCallback
+    }
+
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var tvName: TextView = itemView.findViewById(R.id.tv_firstlastname)
         var tvEmail: TextView = itemView.findViewById(R.id.tv_email)
@@ -34,7 +40,15 @@ class UserAdapter(private val listUsers: List<DataItem>) : RecyclerView.Adapter<
             .into(holder.imgPhoto)
         holder.tvName.text = username
         holder.tvEmail.text = user.email
+
+        holder.itemView.setOnClickListener {
+            onItemClickCallback.onItemClicked(user)
+        }
     }
 
     override fun getItemCount(): Int = listUsers.size
+
+    interface OnItemCallback {
+        fun onItemClicked(data: DataItem)
+    }
 }
