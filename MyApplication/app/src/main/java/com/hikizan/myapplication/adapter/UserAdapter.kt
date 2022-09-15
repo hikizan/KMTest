@@ -1,6 +1,6 @@
 package com.hikizan.myapplication.adapter
 
-import android.media.Image
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,7 +9,6 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.hikizan.myapplication.R
-import com.hikizan.myapplication.databinding.ItemRowUserBinding
 import com.hikizan.myapplication.network.model.DataItem
 
 class UserAdapter(private val listUsers: List<DataItem>) : RecyclerView.Adapter<UserAdapter.ViewHolder>() {
@@ -26,6 +25,7 @@ class UserAdapter(private val listUsers: List<DataItem>) : RecyclerView.Adapter<
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        Log.d("Adapter", "onBindViewHolder: data = ${listUsers}")
         val user = listUsers[position]
         val username = "${user.firstName} ${user.lastName}"
         Glide.with(holder.itemView.context)
